@@ -1,0 +1,154 @@
+'use client';
+
+import { Sidebar, DashboardCard, RevenueChart } from '@/components';
+import { DollarSign, TrendingUp, ShoppingCart, Users } from 'lucide-react';
+import { useState } from 'react';
+import Link from 'next/link';
+
+export default function DashboardPage() {
+  const [userName] = useState('John Doe');
+
+  const dashboardMetrics = [
+    {
+      title: "Today's Revenue",
+      value: 'KES 45,000',
+      icon: <DollarSign size={24} />,
+      color: 'orange' as const,
+    },
+    {
+      title: 'Monthly Revenue',
+      value: 'KES 820,000',
+      icon: <TrendingUp size={24} />,
+      color: 'green' as const,
+    },
+    {
+      title: 'Transactions Today',
+      value: '32',
+      icon: <ShoppingCart size={24} />,
+      color: 'blue' as const,
+    },
+    {
+      title: 'Total Customers',
+      value: '245',
+      icon: <Users size={24} />,
+      color: 'purple' as const,
+    },
+  ];
+
+  return (
+    <div className="flex min-h-screen bg-slate-50">
+      {/* Sidebar */}
+      <Sidebar />
+
+      {/* Main Content */}
+      <main className="flex-1 md:ml-0">
+        {/* Top Navbar */}
+        <nav className="bg-white shadow-sm sticky top-0 z-40">
+          <div className="px-6 py-4 flex items-center justify-between md:ml-64">
+            <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+            <div className="flex items-center gap-4">
+              <span className="text-slate-700 font-medium">{userName}</span>
+              <Link
+                href="/admin/login"
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+              >
+                Logout
+              </Link>
+            </div>
+          </div>
+        </nav>
+
+        {/* Content */}
+        <div className="p-6 md:ml-64 md:p-8">
+          {/* Welcome Section */}
+          <div className="mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 mb-2">
+              Welcome back, {userName}!
+            </h2>
+            <p className="text-slate-600">
+              Here's what's happening with your business today.
+            </p>
+          </div>
+
+          {/* Dashboard Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            {dashboardMetrics.map((metric, index) => (
+              <DashboardCard
+                key={index}
+                title={metric.title}
+                value={metric.value}
+                icon={metric.icon}
+                color={metric.color}
+              />
+            ))}
+          </div>
+
+          {/* Charts and Analytics */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <RevenueChart />
+
+            {/* Stats Card */}
+            <div className="bg-white rounded-2xl shadow-md p-6">
+              <h3 className="text-lg font-bold text-slate-900 mb-6">
+                Recent Activity
+              </h3>
+              <div className="space-y-4">
+                {[
+                  {
+                    label: 'Avg Transaction',
+                    value: 'KES 2,656',
+                    trend: '+5.2%',
+                  },
+                  { label: 'Success Rate', value: '98.5%', trend: '+0.5%' },
+                  { label: 'Pending Payments', value: '3', trend: '-2' },
+                ].map((stat, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-slate-600">{stat.label}</p>
+                      <p className="text-lg font-bold text-slate-900">
+                        {stat.value}
+                      </p>
+                    </div>
+                    <span className="text-green-600 font-semibold text-sm">
+                      {stat.trend}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">
+                View All Transactions
+              </h3>
+              <p className="text-slate-600 mb-6">
+                Check detailed payment history and export reports
+              </p>
+              <Link
+                href="/admin/transactions"
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              >
+                View Transactions →
+              </Link>
+            </div>
+
+            <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
+              <h3 className="text-lg font-bold text-slate-900 mb-4">
+                Download Report
+              </h3>
+              <p className="text-slate-600 mb-6">
+                Export this month's payment data as CSV
+              </p>
+              <button className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors font-medium">
+                Export Report →
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
