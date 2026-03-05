@@ -31,18 +31,29 @@ export default function LoginPage() {
       return;
     }
 
-    // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    // Demo credentials: admin@junior.com / password123
-    if (
-      email === 'admin@junior.com' &&
-      password === 'password123'
-    ) {
-      // Redirect to dashboard
-      router.push('/admin/dashboard');
-    } else {
-      setError('Invalid email or password');
+      const data = await response.json();
+
+      if (response.ok && data.token) {
+        // Save token and info
+        localStorage.setItem('adminToken', data.token);
+        localStorage.setItem('adminName', data.name);
+        // Redirect to dashboard
+        router.push('/admin/dashboard');
+      } else {
+        setError(data.detail || 'Invalid email or password');
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('Connection error. Please try again.');
       setLoading(false);
     }
   };
@@ -77,19 +88,6 @@ export default function LoginPage() {
               </div>
             </div>
           )}
-
-          {/* Demo Credentials Info */}
-          <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-xs text-blue-600 font-semibold mb-2">
-              DEMO CREDENTIALS
-            </p>
-            <p className="text-sm text-blue-900">
-              Email: <span className="font-mono font-semibold">admin@junior.com</span>
-            </p>
-            <p className="text-sm text-blue-900">
-              Password: <span className="font-mono font-semibold">password123</span>
-            </p>
-          </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">

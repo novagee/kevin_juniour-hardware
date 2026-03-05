@@ -1,39 +1,99 @@
 'use client';
 
 import { Sidebar, DashboardCard, RevenueChart } from '@/components';
-import { DollarSign, TrendingUp, ShoppingCart, Users } from 'lucide-react';
-import { useState } from 'react';
+import { DollarSign, TrendingUp, ShoppingCart, Users, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+interface DashboardStats {
+  todayRevenue: number;
+  monthlyRevenue: number;
+  transactionsToday: number;
+  totalCustomers: number;
+  avgTransaction: number;
+  successRate: number;
+  pendingPayments: number;
+}
 
 export default function DashboardPage() {
-  const [userName] = useState('John Doe');
+  const [userName, setUserName] = useState('');
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
-  const dashboardMetrics = [
+  useEffect(() => {
+    // Check auth
+    const token = localStorage.getItem('adminToken');
+    if (!token) {
+      router.push('/admin/login');
+      return;
+    }
+
+    const name = localStorage.getItem('adminName');
+    if (name) setUserName(name);
+
+    // Fetch stats
+    const fetchStats = async () => {
+      try {
+        const res = await fetch('/api/transactions/stats');
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch stats:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStats();
+  }, [router]);
+
+  const formatCurrency = (amount: number) => {
+    return `KES ${new Intl.NumberFormat('en-KE').format(amount)}`;
+  };
+
+  const dashboardMetrics = stats ? [
     {
       title: "Today's Revenue",
-      value: 'KES 45,000',
+      value: formatCurrency(stats.todayRevenue),
       icon: <DollarSign size={24} />,
       color: 'orange' as const,
     },
     {
       title: 'Monthly Revenue',
-      value: 'KES 820,000',
+      value: formatCurrency(stats.monthlyRevenue),
       icon: <TrendingUp size={24} />,
       color: 'green' as const,
     },
     {
       title: 'Transactions Today',
-      value: '32',
+      value: stats.transactionsToday.toString(),
       icon: <ShoppingCart size={24} />,
       color: 'blue' as const,
     },
     {
       title: 'Total Customers',
-      value: '245',
+      value: stats.totalCustomers.toString(),
       icon: <Users size={24} />,
       color: 'purple' as const,
     },
-  ];
+  ] : [];
+
+  const handleLogout = () => {
+    localStorage.removeItem('adminToken');
+    localStorage.removeItem('adminName');
+  };
+
+  if (loading || !stats) {
+    return (
+      <div className="flex min-h-screen bg-slate-50 items-center justify-center">
+        <Loader2 className="w-12 h-12 animate-spin text-orange-500" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-slate-50">
@@ -50,6 +110,7 @@ export default function DashboardPage() {
               <span className="text-slate-700 font-medium">{userName}</span>
               <Link
                 href="/admin/login"
+                onClick={handleLogout}
                 className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
               >
                 Logout
@@ -96,11 +157,19 @@ export default function DashboardPage() {
                 {[
                   {
                     label: 'Avg Transaction',
-                    value: 'KES 2,656',
-                    trend: '+5.2%',
+                    value: `KES ${new Intl.NumberFormat('en-KE').format(stats.avgTransaction)}`,
+                    color: 'text-green-600',
                   },
-                  { label: 'Success Rate', value: '98.5%', trend: '+0.5%' },
-                  { label: 'Pending Payments', value: '3', trend: '-2' },
+                  {
+                    label: 'Success Rate',
+                    value: `${stats.successRate}%`,
+                    color: 'text-green-600',
+                  },
+                  {
+                    label: 'Pending Payments',
+                    value: stats.pendingPayments.toString(),
+                    color: stats.pendingPayments > 0 ? 'text-yellow-600' : 'text-green-600',
+                  },
                 ].map((stat, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div>
@@ -109,8 +178,8 @@ export default function DashboardPage() {
                         {stat.value}
                       </p>
                     </div>
-                    <span className="text-green-600 font-semibold text-sm">
-                      {stat.trend}
+                    <span className={`font-semibold text-sm ${stat.color}`}>
+                      Live
                     </span>
                   </div>
                 ))}
