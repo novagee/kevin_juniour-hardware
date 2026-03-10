@@ -79,12 +79,12 @@ export default function RevenueChart() {
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 col-span-1 lg:col-span-2">
-      <div className="mb-6">
-        <h3 className="text-lg font-bold text-slate-900">Revenue Trend</h3>
-        <p className="text-sm text-slate-500">Monthly revenue for the last 6 months</p>
+    <div className="bg-white rounded-2xl shadow-md p-4 sm:p-6 col-span-1 lg:col-span-2">
+      <div className="mb-4 sm:mb-6">
+        <h3 className="text-base sm:text-lg font-bold text-slate-900">Revenue Trend</h3>
+        <p className="text-xs sm:text-sm text-slate-500 mt-1">Monthly revenue for the last 6 months</p>
       </div>
-      <div className="h-80">
+      <div className="h-60 sm:h-80">
         <Line data={MONTHLY_REVENUE_DATA} options={options} />
       </div>
     </div>

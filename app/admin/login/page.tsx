@@ -59,47 +59,47 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 flex flex-col justify-center py-8 px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md mb-8">
-        <Link href="/" className="flex items-center justify-center gap-2 mb-8">
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-lg font-bold text-2xl">
+      <div className="mx-auto w-full max-w-md mb-6 sm:mb-8">
+        <Link href="/" className="flex items-center justify-center gap-2 mb-6 sm:mb-8">
+          <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg font-bold text-xl sm:text-2xl">
             JH
           </div>
         </Link>
-        <h2 className="text-center text-3xl font-bold text-white mb-2">
+        <h2 className="text-center text-2xl sm:text-3xl font-bold text-white mb-2">
           Admin Login
         </h2>
-        <p className="text-center text-gray-300">
+        <p className="text-center text-sm sm:text-base text-gray-300">
           Access your dashboard and manage payments
         </p>
       </div>
 
       {/* Login Card */}
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white rounded-2xl shadow-2xl px-6 py-8 sm:px-8">
+      <div className="mx-auto w-full max-w-md">
+        <div className="bg-white rounded-2xl shadow-2xl px-4 sm:px-6 md:px-8 py-6 sm:py-8">
           {/* Error Message */}
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
-              <AlertCircle size={20} className="text-red-600 shrink-0 mt-0.5" />
+            <div className="mb-6 p-3 sm:p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3">
+              <AlertCircle size={18} className="text-red-600 shrink-0 mt-0.5 sm:size-20" />
               <div>
-                <p className="font-semibold text-red-900">Login Failed</p>
-                <p className="text-sm text-red-700">{error}</p>
+                <p className="font-semibold text-red-900 text-sm sm:text-base">Login Failed</p>
+                <p className="text-xs sm:text-sm text-red-700">{error}</p>
               </div>
             </div>
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
+              <label htmlFor="email" className="block text-xs sm:text-sm font-semibold text-slate-900 mb-1.5 sm:mb-2">
                 Email Address
               </label>
               <div className="relative">
                 <Mail
-                  size={18}
-                  className="absolute left-3 top-3.5 text-slate-400"
+                  size={16}
+                  className="absolute left-3 top-3 sm:top-3.5 text-slate-400"
                 />
                 <input
                   id="email"
@@ -107,7 +107,7 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@junior.com"
-                  className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   disabled={loading}
                 />
               </div>
@@ -115,13 +115,13 @@ export default function LoginPage() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-semibold text-slate-900 mb-2">
+              <label htmlFor="password" className="block text-xs sm:text-sm font-semibold text-slate-900 mb-1.5 sm:mb-2">
                 Password
               </label>
               <div className="relative">
                 <Lock
-                  size={18}
-                  className="absolute left-3 top-3.5 text-slate-400"
+                  size={16}
+                  className="absolute left-3 top-3 sm:top-3.5 text-slate-400"
                 />
                 <input
                   id="password"
@@ -129,31 +129,31 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
-                  className="w-full pl-10 pr-10 py-3 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                  className="w-full pl-10 pr-10 py-2.5 sm:py-3 text-sm sm:text-base border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                   disabled={loading}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3.5 text-slate-400 hover:text-slate-600"
+                  className="absolute right-3 top-3 sm:top-3.5 text-slate-400 hover:text-slate-600"
                   disabled={loading}
                 >
-                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
               </div>
             </div>
 
             {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 text-sm text-slate-600">
+            <div className="flex items-center justify-between gap-2">
+              <label className="flex items-center gap-2 text-xs sm:text-sm text-slate-600">
                 <input
                   type="checkbox"
                   className="w-4 h-4 rounded border-slate-300 text-orange-500 focus:ring-orange-500"
                   disabled={loading}
                 />
-                Remember me
+                <span className="hidden sm:inline">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-orange-600 hover:text-orange-700">
+              <a href="#" className="text-xs sm:text-sm text-orange-600 hover:text-orange-700">
                 Forgot password?
               </a>
             </div>
@@ -162,7 +162,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-slate-900 to-slate-800 text-white py-3 rounded-lg font-semibold hover:from-slate-800 hover:to-slate-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-slate-900 to-slate-800 text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:from-slate-800 hover:to-slate-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -175,11 +175,11 @@ export default function LoginPage() {
             </button>
 
             {/* Divider */}
-            <div className="relative my-6">
+            <div className="relative my-4 sm:my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-300"></div>
               </div>
-              <div className="relative flex justify-center text-sm">
+              <div className="relative flex justify-center text-xs sm:text-sm">
                 <span className="px-2 bg-white text-slate-600">
                   or continue with
                 </span>
@@ -188,7 +188,7 @@ export default function LoginPage() {
 
             {/* Additional Help */}
             <div className="text-center">
-              <p className="text-sm text-slate-600">
+              <p className="text-xs sm:text-sm text-slate-600">
                 Having trouble logging in?{' '}
                 <a href="tel:+254712345678" className="text-orange-600 hover:text-orange-700 font-semibold">
                   Contact Support

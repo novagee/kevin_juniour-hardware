@@ -17,7 +17,7 @@ export default function Navbar() {
               JH
             </div>
             <span className="hidden sm:inline font-bold text-slate-900">
-             kevin Junior Hardware
+            new junior plumber hardware 
             </span>
           </Link>
 

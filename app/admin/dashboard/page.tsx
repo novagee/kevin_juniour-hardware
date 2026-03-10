@@ -101,13 +101,13 @@ export default function DashboardPage() {
       <Sidebar />
 
       {/* Main Content */}
-      <main className="flex-1 md:ml-0">
+      <main className="flex-1 w-full">
         {/* Top Navbar */}
         <nav className="bg-white shadow-sm sticky top-0 z-40">
-          <div className="px-6 py-4 flex items-center justify-between md:ml-64">
-            <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-            <div className="flex items-center gap-4">
-              <span className="text-slate-700 font-medium">{userName}</span>
+          <div className="px-4 sm:px-6 py-4 flex items-center justify-between">
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-900">Dashboard</h1>
+            <div className="hidden sm:flex items-center gap-4">
+              <span className="text-slate-700 font-medium text-sm">{userName}</span>
               <Link
                 href="/admin/login"
                 onClick={handleLogout}
@@ -116,17 +116,24 @@ export default function DashboardPage() {
                 Logout
               </Link>
             </div>
+            <Link
+              href="/admin/login"
+              onClick={handleLogout}
+              className="sm:hidden px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs font-medium"
+            >
+              Logout
+            </Link>
           </div>
         </nav>
 
         {/* Content */}
-        <div className="p-6 md:ml-64 md:p-8">
+        <div className="p-4 sm:p-6 md:p-8 pb-8">
           {/* Welcome Section */}
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-slate-900 mb-2">
+          <div className="mb-6 sm:mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">
               Welcome back, {userName}!
             </h2>
-            <p className="text-slate-600">
+            <p className="text-sm sm:text-base text-slate-600">
               Here's what's happening with your business today.
             </p>
           </div>
@@ -145,12 +152,12 @@ export default function DashboardPage() {
           </div>
 
           {/* Charts and Analytics */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             <RevenueChart />
 
             {/* Stats Card */}
-            <div className="bg-white rounded-2xl shadow-md p-6">
-              <h3 className="text-lg font-bold text-slate-900 mb-6">
+            <div className="bg-white rounded-2xl shadow-md p-4 sm:p-6">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-4 sm:mb-6">
                 Recent Activity
               </h3>
               <div className="space-y-4">
@@ -188,30 +195,30 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick Actions */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl p-8 border border-blue-200">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="bg-linear-to-br from-blue-50 to-blue-100 rounded-2xl p-4 sm:p-6 md:p-8 border border-blue-200">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 sm:mb-4">
                 View All Transactions
               </h3>
-              <p className="text-slate-600 mb-6">
+              <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6">
                 Check detailed payment history and export reports
               </p>
               <Link
                 href="/admin/transactions"
-                className="inline-flex items-center gap-2 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                className="inline-flex items-center gap-2 bg-blue-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base font-medium"
               >
                 View Transactions →
               </Link>
             </div>
 
-            <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-2xl p-8 border border-orange-200">
-              <h3 className="text-lg font-bold text-slate-900 mb-4">
+            <div className="bg-linear-to-br from-orange-50 to-orange-100 rounded-2xl p-4 sm:p-6 md:p-8 border border-orange-200">
+              <h3 className="text-base sm:text-lg font-bold text-slate-900 mb-2 sm:mb-4">
                 Download Report
               </h3>
-              <p className="text-slate-600 mb-6">
+              <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6">
                 Export this month's payment data as CSV
               </p>
-              <button className="inline-flex items-center gap-2 bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors font-medium">
+              <button className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm sm:text-base font-medium">
                 Export Report →
               </button>
             </div>

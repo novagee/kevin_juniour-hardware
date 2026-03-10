@@ -21,13 +21,13 @@ export default function DashboardCard({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition-shadow">
-      <div className="flex items-start justify-between mb-4">
+    <div className="bg-white rounded-2xl shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
+      <div className="flex items-start justify-between mb-3 sm:mb-4">
         <div>
-          <p className="text-slate-600 text-sm font-medium">{title}</p>
-          <p className="text-3xl font-bold text-slate-900 mt-2">{value}</p>
+          <p className="text-xs sm:text-sm text-slate-600 font-medium">{title}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-slate-900 mt-1 sm:mt-2">{value}</p>
         </div>
-        <div className={`p-3 rounded-lg ${colorStyles[color]}`}>
+        <div className={`p-2 sm:p-3 rounded-lg ${colorStyles[color]}`}>
           {icon}
         </div>
       </div>

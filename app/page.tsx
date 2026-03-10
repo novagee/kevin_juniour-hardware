@@ -36,37 +36,37 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-slate-900 via-slate-900 to-slate-800 text-white py-20 md:py-32">
+      <section className="bg-linear-to-br from-slate-900 via-slate-900 to-slate-800 text-white py-12 md:py-20 lg:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left Content */}
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
                 Smart Payment System for{' '}
-                <span className="text-orange-500"> new Junior plumbers and  Hardware</span>
+                <span className="text-orange-500">new Junior plumbers and Hardware</span>
               </h1>
-              <p className="text-xl text-gray-300 mb-8">
+              <p className="text-lg sm:text-xl text-gray-300 mb-4 sm:mb-8">
                 Fast. Automated. Reliable.
               </p>
-              <p className="text-gray-400 text-lg mb-8">
+              <p className="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8">
                 Accept M-Pesa payments effortlessly with automatic SMS
                 notifications and real-time revenue tracking.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Link
                   href="/pay"
-                  className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors text-sm sm:text-base"
                 >
                   How to Pay
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} className="hidden sm:block" />
                 </Link>
                 <Link
                   href="/admin/login"
-                  className="inline-flex items-center justify-center gap-2 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-8 py-4 rounded-lg font-semibold transition-colors"
+                  className="inline-flex items-center justify-center gap-2 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors text-sm sm:text-base"
                 >
                   Admin Login
-                  <ArrowRight size={20} />
+                  <ArrowRight size={18} className="hidden sm:block" />
                 </Link>
               </div>
             </div>
@@ -98,33 +98,33 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 md:py-32 bg-white">
+      <section className="py-12 sm:py-20 md:py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-10 sm:mb-12 md:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-3 sm:mb-4">
               Why Choose Our Payment System?
             </h2>
-            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto px-2">
               Streamline your payment process with our intelligent, automated
               solution designed for hardware businesses
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <div
                   key={index}
-                  className="bg-linear-to-br from-slate-50 to-slate-100 rounded-2xl p-8 hover:shadow-lg transition-shadow border border-slate-200"
+                  className="bg-linear-to-br from-slate-50 to-slate-100 rounded-2xl p-6 sm:p-8 hover:shadow-lg transition-shadow border border-slate-200"
                 >
-                  <div className="bg-orange-500 text-white p-4 rounded-xl w-fit mb-4">
+                  <div className="bg-orange-500 text-white p-3 sm:p-4 rounded-xl w-fit mb-4">
                     <Icon size={24} />
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3">
                     {feature.title}
                   </h3>
-                  <p className="text-slate-600">{feature.description}</p>
+                  <p className="text-sm sm:text-base text-slate-600">{feature.description}</p>
                 </div>
               );
             })}
@@ -133,19 +133,19 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 md:py-32 bg-linear-to-r from-slate-900 to-slate-800 text-white">
+      <section className="py-12 sm:py-20 md:py-32 bg-linear-to-r from-slate-900 to-slate-800 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             Ready to Transform Your Payments?
           </h2>
-          <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto">
             Join us today and start accepting M-Pesa payments with automatic
             notifications and real-time insights.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Link
               href="/pay"
-              className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors text-sm sm:text-base"
             >
               Get Started
               <ArrowRight size={20} />

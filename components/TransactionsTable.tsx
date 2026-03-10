@@ -239,7 +239,6 @@ function EditModal({
   );
 }
 
-// ─── Create Transaction Modal ─────────────────────────────
 function CreateModal({
   onSave,
   onClose,
@@ -487,37 +486,38 @@ export default function TransactionsTable({
       <div className="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-100">
         {/* Table */}
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-max">
             <thead>
               <tr className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200">
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Phone</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">M-Pesa Code</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Actions</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Date</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Phone</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider hidden sm:table-cell">Amount</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">M-Pesa</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-bold text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="px-3 sm:px-6 py-3 sm:py-4 text-right text-xs font-bold text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {paginatedData.map((transaction) => (
                 <tr key={transaction.id} className="group hover:bg-orange-50/40 transition-colors duration-150">
-                  <td className="px-6 py-4 text-sm text-slate-700 whitespace-nowrap">{formatDate(transaction.date)}</td>
-                  <td className="px-6 py-4 text-sm font-mono text-slate-800 whitespace-nowrap">{transaction.phone}</td>
-                  <td className="px-6 py-4 text-sm font-bold text-slate-900 whitespace-nowrap">{formatAmount(transaction.amount)}</td>
-                  <td className="px-6 py-4 text-sm font-mono text-orange-600 whitespace-nowrap">{transaction.mpesaCode}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold capitalize ${statusStyles[transaction.status]}`}>
+                  <td className="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm text-slate-700 whitespace-nowrap">{formatDate(transaction.date)}</td>
+                  <td className="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm font-mono text-slate-800 whitespace-nowrap">{transaction.phone}</td>
+                  <td className="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm font-bold text-slate-900 whitespace-nowrap hidden sm:table-cell">{formatAmount(transaction.amount)}</td>
+                  <td className="px-3 sm:px-6 py-2 sm:py-4 text-xs sm:text-sm font-mono text-orange-600 whitespace-nowrap truncate max-w-xs">{transaction.mpesaCode}</td>
+                  <td className="px-3 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
+                    <span className={`inline-flex items-center gap-1 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-xs font-semibold capitalize ${statusStyles[transaction.status]}`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${statusDot[transaction.status]}`} />
-                      {transaction.status}
+                      <span className="hidden sm:inline">{transaction.status}</span>
+                      <span className="sm:hidden">{transaction.status.charAt(0).toUpperCase()}</span>
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
-                      <button onClick={() => setEditTarget(transaction)} title="Edit transaction" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-600 hover:text-orange-700 text-xs font-semibold transition-colors border border-orange-200">
-                        <Pencil size={13} /> Edit
+                  <td className="px-3 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
+                    <div className="flex items-center justify-end gap-1 sm:gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+                      <button onClick={() => setEditTarget(transaction)} title="Edit transaction" className="flex items-center gap-0.5 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-orange-50 hover:bg-orange-100 text-orange-600 hover:text-orange-700 text-xs font-semibold transition-colors border border-orange-200">
+                        <Pencil size={12} className="sm:size-13" /> <span className="hidden sm:inline">Edit</span>
                       </button>
-                      <button onClick={() => setDeleteTarget(transaction)} title="Delete transaction" className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 text-xs font-semibold transition-colors border border-red-200">
-                        <Trash2 size={13} /> Delete
+                      <button onClick={() => setDeleteTarget(transaction)} title="Delete transaction" className="flex items-center gap-0.5 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700 text-xs font-semibold transition-colors border border-red-200">
+                        <Trash2 size={12} className="sm:size-13" /> <span className="hidden sm:inline">Delete</span>
                       </button>
                     </div>
                   </td>
@@ -528,26 +528,26 @@ export default function TransactionsTable({
         </div>
 
         {/* Pagination */}
-        <div className="px-6 py-4 border-t border-slate-100 flex items-center justify-between bg-slate-50/60">
-          <p className="text-sm text-slate-500">
+        <div className="px-3 sm:px-6 py-3 sm:py-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50/60">
+          <p className="text-xs sm:text-sm text-slate-500 text-center sm:text-left">
             Showing <span className="font-semibold text-slate-800">{startIdx + 1}–{Math.min(endIdx, transactions.length)}</span> of{' '}
             <span className="font-semibold text-slate-800">{transactions.length}</span> transactions
           </p>
-          <div className="flex items-center gap-1">
-            <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-slate-600 text-sm font-medium transition-all">
-              <ChevronLeft size={15} /> Prev
+          <div className="flex items-center gap-1 flex-wrap justify-center">
+            <button onClick={() => setCurrentPage((p) => Math.max(1, p - 1))} disabled={currentPage === 1} className="flex items-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-slate-200 hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-slate-600 text-xs sm:text-sm font-medium transition-all">
+              <ChevronLeft size={14} className="sm:size-15" /> <span className="hidden sm:inline">Prev</span>
             </button>
             {getPageNumbers().map((page, i) =>
               page === '…' ? (
-                <span key={`ellipsis-${i}`} className="w-9 text-center text-slate-400 text-sm">…</span>
+                <span key={`ellipsis-${i}`} className="w-8 sm:w-9 text-center text-slate-400 text-xs sm:text-sm">…</span>
               ) : (
-                <button key={page} onClick={() => setCurrentPage(page as number)} className={`w-9 h-9 rounded-lg text-sm font-semibold transition-all ${currentPage === page ? 'bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-md shadow-orange-200' : 'border border-slate-200 text-slate-600 hover:bg-white hover:border-orange-300'}`}>
+                <button key={page} onClick={() => setCurrentPage(page as number)} className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg text-xs sm:text-sm font-semibold transition-all ${currentPage === page ? 'bg-gradient-to-br from-orange-500 to-amber-500 text-white shadow-md shadow-orange-200' : 'border border-slate-200 text-slate-600 hover:bg-white hover:border-orange-300'}`}>
                   {page}
                 </button>
               )
             )}
-            <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages || totalPages === 0} className="flex items-center gap-1 px-3 py-2 rounded-lg border border-slate-200 hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-slate-600 text-sm font-medium transition-all">
-              Next <ChevronRight size={15} />
+            <button onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages || totalPages === 0} className="flex items-center gap-1 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg border border-slate-200 hover:bg-white disabled:opacity-40 disabled:cursor-not-allowed text-slate-600 text-xs sm:text-sm font-medium transition-all">
+              <span className="hidden sm:inline">Next</span> <ChevronRight size={14} className="sm:size-15" />
             </button>
           </div>
         </div>

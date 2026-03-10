@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 interface Transaction {
-  id: number;
+  id: number | string;
   date: string;
   phone: string;
   amount: number;
@@ -129,53 +129,60 @@ export default function TransactionsPage() {
     <div className="flex min-h-screen bg-slate-50">
       <Sidebar />
 
-      <main className="flex-1 md:ml-0">
+      <main className="flex-1 w-full">
         {/* Top Navbar */}
         <nav className="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-100">
-          <div className="px-6 py-4 flex items-center justify-between md:ml-64">
+          <div className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
             <div>
-              <h1 className="text-xl font-bold text-slate-900">Transactions</h1>
+              <h1 className="text-lg sm:text-xl font-bold text-slate-900">Transactions</h1>
               <p className="text-xs text-slate-400 mt-0.5">
                 {transactions.length} record{transactions.length !== 1 ? 's' : ''} loaded
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Add Transaction Button */}
               <button
                 onClick={() => setShowCreateModal(true)}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl text-sm font-semibold shadow-md shadow-emerald-200 transition-all"
+                className="hidden sm:flex items-center gap-2 px-3 sm:px-4 py-2 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-md shadow-emerald-200 transition-all"
               >
                 <Plus size={16} />
-                Add Transaction
+                <span className="hidden sm:inline">Add Transaction</span>
               </button>
-              <span className="text-slate-700 font-medium text-sm hidden sm:block">{userName}</span>
+              <button
+                onClick={() => setShowCreateModal(true)}
+                className="sm:hidden flex items-center justify-center w-10 h-10 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-lg shadow-md shadow-emerald-200 transition-all"
+              >
+                <Plus size={20} />
+              </button>
+              <span className="text-slate-700 font-medium text-xs sm:text-sm hidden md:block">{userName}</span>
               <Link
                 href="/admin/login"
                 onClick={handleLogout}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm font-medium"
+                className="px-3 sm:px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-xs sm:text-sm font-medium"
               >
-                Logout
+                <span className="hidden sm:inline">Logout</span>
+                <span className="sm:hidden">Out</span>
               </Link>
             </div>
           </div>
         </nav>
 
-        <div className="p-6 md:ml-64 md:p-8 space-y-8">
+        <div className="p-4 sm:p-6 md:p-8 pb-8 space-y-6 sm:space-y-8">
 
           {/* Page header */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
                 Payment Transactions
               </h2>
-              <p className="text-slate-500 text-sm">
+              <p className="text-xs sm:text-sm text-slate-500">
                 View, create, edit, and manage all M-Pesa payment records
               </p>
             </div>
             {/* Secondary Add button in content area */}
             <button
               onClick={() => setShowCreateModal(true)}
-              className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl text-sm font-semibold shadow-md shadow-emerald-200 transition-all"
+              className="hidden lg:flex items-center gap-2 px-5 py-2.5 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl text-sm font-semibold shadow-md shadow-emerald-200 transition-all"
             >
               <Plus size={16} />
               New Transaction
@@ -183,21 +190,21 @@ export default function TransactionsPage() {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
-              <div className="flex items-center justify-between mb-3">
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-3 sm:p-5">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Total Records</p>
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                  <Filter size={14} className="text-blue-600" />
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                  <Filter size={13} className="sm:size-14 text-blue-600" />
                 </div>
               </div>
-              <p className="text-3xl font-extrabold text-slate-900">{transactions.length}</p>
+              <p className="text-2xl sm:text-3xl font-extrabold text-slate-900">{transactions.length}</p>
             </div>
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-5">
-              <div className="flex items-center justify-between mb-3">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Completed Revenue</p>
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center">
-                  <TrendingUp size={14} className="text-emerald-600" />
+            <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-3 sm:p-5">
+              <div className="flex items-center justify-between mb-2 sm:mb-3">
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide">Completed</p>
+                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-100 flex items-center justify-center">
+                  <TrendingUp size={13} className="sm:size-14 text-emerald-600" />
                 </div>
               </div>
               <p className="text-2xl font-extrabold text-slate-900">KES {new Intl.NumberFormat('en-KE').format(totalAmount)}</p>
@@ -319,7 +326,7 @@ export default function TransactionsPage() {
                 )}
                 <button
                   onClick={() => setShowCreateModal(true)}
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-semibold text-sm shadow-md shadow-emerald-200 transition-all"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-linear-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white rounded-xl font-semibold text-sm shadow-md shadow-emerald-200 transition-all"
                 >
                   <Plus size={16} />
                   Add First Transaction
