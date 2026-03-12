@@ -7,6 +7,11 @@ from pydantic import BaseModel
 
 from db.database import get_db
 from db.models import PaymentTransaction
+from fastapi import Request
+
+
+from db.database import get_db
+
 
 router = APIRouter(prefix="/api/transactions", tags=["transactions"])
 
@@ -258,3 +263,62 @@ async def delete_transaction(
     await db.delete(txn)
     await db.commit()
     return {"message": "Transaction deleted successfully"}
+
+
+# mpesa confirmation endpoint
+@router.post("/confirmation")
+async def mpesa_confirmation(
+    request: Request,
+    db: AsyncSession = Depends(get_db)
+):
+    data = await request.json()
+    print("Payment received:", data)
+
+    mpesa_code = data.get("TransID")
+    phone = data.get("MSISDN")
+    amount = float(data.get("TransAmount"))
+
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+
+    # Check duplicate transaction
+    result = await db.execute(
+        select(PaymentTransaction).where(
+            PaymentTransaction.mpesa_code == mpesa_code
+        )
+    )
+
+    existing = result.scalar_one_or_none()
+
+    if existing:
+        # Update existing transaction
+        existing.status = "completed"
+        await db.commit()
+
+    else:
+        # Create new transaction
+        txn = PaymentTransaction(
+            date=today,
+            phone=phone,
+            amount=amount,
+            mpesa_code=mpesa_code,
+            status="completed"
+        )
+
+        db.add(txn)
+        await db.commit()
+
+    return {
+        "ResultCode": 0,
+        "ResultDesc": "Accepted"
+    }
+
+# mpesa validation endpoint
+@router.post("/validation")
+async def mpesa_validation(request: Request):
+    data = await request.json()
+    print("Validation Request Received:", data)
+
+    return {
+        "ResultCode": 0,
+        "ResultDesc": "Accepted"
+    }
