@@ -30,10 +30,10 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/pay"
+              href="/products"
               className="text-slate-700 hover:text-orange-500 transition-colors"
             >
-              How to Pay
+              Our Products
             </Link>
             <Link
               href="/admin/login"
@@ -63,11 +63,11 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/pay"
+              href="/products"
               className="text-slate-700 hover:text-orange-500 transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              How to Pay
+              Our Products
             </Link>
             <Link
               href="/admin/login"

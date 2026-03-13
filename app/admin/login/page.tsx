@@ -190,7 +190,7 @@ export default function LoginPage() {
             <div className="text-center">
               <p className="text-xs sm:text-sm text-slate-600">
                 Having trouble logging in?{' '}
-                <a href="tel:+254712345678" className="text-orange-600 hover:text-orange-700 font-semibold">
+                <a href="tel:+254713095009" className="text-orange-600 hover:text-orange-700 font-semibold">
                   Contact Support
                 </a>
               </p>
