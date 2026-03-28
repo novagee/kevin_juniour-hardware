@@ -24,11 +24,11 @@ async def seed():
             # Create admin user
             admin = AdminUser(
                 email="admin@junior.com",
-                password_hash=hash_password("password123"),
-                name="Kevin Junior",
+                password_hash=hash_password("junior@8718"),
+                name="New Junior",
             )
             session.add(admin)
-            print("Created admin user: admin@junior.com / password123")
+            print("Created admin user: admin@junior.com / junior@8718")
 
             # Create sample transactions
             today = datetime.utcnow().strftime("%Y-%m-%d")

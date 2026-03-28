@@ -1,8 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { Navbar, Footer } from '@/components/index';
-import { ShoppingCart, ArrowRight } from 'lucide-react';
+import { ArrowRight, ChevronDown } from 'lucide-react';
+import { useState } from 'react';
 
 // WhatsApp Icon Component
 const WhatsAppIcon = () => (
@@ -18,30 +18,118 @@ const WhatsAppIcon = () => (
 );
 
 export default function Products() {
-  const products = [
+  const [expandedCategory, setExpandedCategory] = useState<number | null>(null);
+
+  const categories = [
     {
       id: 1,
-      name: 'Pipes',
-      description: 'High-quality durable pipes for all plumbing needs',
-      image: '/pipe.jpeg',
-      price: 'Starting from KES 5,000',
-      features: ['Durable', 'Weather-resistant', 'Long-lasting'],
+      name: 'Cordless Tools',
+      icon: '🔋',
+      description: 'Modern cordless power tools for convenience and mobility',
+      subcategories: ['Cordless Drills', 'Cordless Saws', 'Impact Drivers', 'Battery Packs & Chargers'],
+      products: [
+        { name: 'Cordless Impact Drill', price: 'KES 8,500', features: ['18V Li-ion', 'Compact design'] },
+        { name: 'Cordless Jigsaw', price: 'KES 6,200', features: ['Variable speed', 'LED light'] },
+      ]
     },
     {
       id: 2,
-      name: 'Tanks',
-      description: 'Premium water storage tanks for residential and commercial use',
-      image: '/tank.jpeg',
-      price: 'Starting from KES 15,000',
-      features: ['Large capacity', 'Leak-proof', 'Easy installation'],
+      name: 'Power Tools',
+      icon: '⚡',
+      description: 'Professional-grade power tools for construction and heavy-duty work',
+      subcategories: ['Impact Drills', 'Circular Saws', 'Angle Grinders', 'Rotary Hammers'],
+      products: [
+        { name: 'Electric Impact Drill', price: 'KES 5,800', features: ['1000W', 'Powerful'] },
+        { name: 'Angle Grinder', price: 'KES 4,200', features: ['115mm', 'Durable'] },
+      ]
     },
     {
       id: 3,
-      name: 'Ceramic Fixtures',
-      description: 'Premium ceramic bathroom and kitchen fixtures',
-      image: '/cera.jpeg',
-      price: 'Starting from KES 3,500',
-      features: ['Modern design', 'Easy to clean', 'Durable finish'],
+      name: 'Power Tool Accessories',
+      icon: '🔧',
+      description: 'Complete range of accessories for all power tools',
+      subcategories: ['Saw Blades', 'Drill Bits', 'Grinding Wheels', 'Tool Bags'],
+      products: [
+        { name: 'Saw Blade Set', price: 'KES 2,500', features: ['Multiple sizes', 'High quality'] },
+        { name: 'Drill Bit Set', price: 'KES 1,800', features: ['13 pieces', 'All metals'] },
+      ]
+    },
+    {
+      id: 4,
+      name: 'Generators',
+      icon: '⚙️',
+      description: 'Reliable power generation solutions for home and business',
+      subcategories: ['Portable Generators', 'Inverter Generators', 'Gas Generators', 'Spare Parts'],
+      products: [
+        { name: 'Portable Generator 2KVA', price: 'KES 35,000', features: ['Fuel efficient', 'Low noise'] },
+        { name: 'Inverter Generator 5KVA', price: 'KES 65,000', features: ['Quiet operation', 'Stable output'] },
+      ]
+    },
+    {
+      id: 5,
+      name: 'Welding Machine',
+      icon: '🔥',
+      description: 'Professional welding equipment for metal joining',
+      subcategories: ['Arc Welders', 'MIG Welders', 'Electrodes', 'Safety Gear'],
+      products: [
+        { name: 'Arc Welder 200A', price: 'KES 28,000', features: ['Portable', 'Efficient'] },
+        { name: 'MIG Welder', price: 'KES 42,000', features: ['Wire feed', 'Professional'] },
+      ]
+    },
+    {
+      id: 6,
+      name: 'Small Construction Equipment',
+      icon: '🏗️',
+      description: 'Compact construction equipment for small projects',
+      subcategories: ['Concrete Mixers', 'Vibrators', 'Breakers', 'Compactors'],
+      products: [
+        { name: 'Electric Concrete Mixer', price: 'KES 18,500', features: ['200L capacity', 'Heavy duty'] },
+        { name: 'Concrete Vibrator', price: 'KES 12,000', features: ['Portable', 'Efficient'] },
+      ]
+    },
+    {
+      id: 7,
+      name: 'Air Tools',
+      icon: '💨',
+      description: 'Pneumatic tools powered by air compressors',
+      subcategories: ['Impact Wrenches', 'Air Drills', 'Air Nailers', 'Air Compressors'],
+      products: [
+        { name: 'Air Impact Wrench', price: 'KES 4,500', features: ['1/2" drive', 'Powerful'] },
+        { name: 'Air Compressor 50L', price: 'KES 22,000', features: ['Portable', 'Oil-free'] },
+      ]
+    },
+    {
+      id: 8,
+      name: 'Water Pumps',
+      icon: '💧',
+      description: 'Water pumping solutions for various applications',
+      subcategories: ['Submersible Pumps', 'Surface Pumps', 'Pressure Pumps', 'Spare Parts'],
+      products: [
+        { name: 'Submersible Water Pump', price: 'KES 8,500', features: ['1000W', 'Deep well'] },
+        { name: 'Surface Pump', price: 'KES 5,200', features: ['1HP', 'Reliable'] },
+      ]
+    },
+    {
+      id: 9,
+      name: 'Measuring Tool',
+      icon: '📏',
+      description: 'Precision measurement instruments for accurate work',
+      subcategories: ['Tape Measures', 'Levels', 'Laser Measurers', 'Spirit Levels'],
+      products: [
+        { name: 'Laser Measure', price: 'KES 6,800', features: ['50m range', 'Digital display'] },
+        { name: 'Professional Level', price: 'KES 3,200', features: ['120cm', 'Accurate'] },
+      ]
+    },
+    {
+      id: 10,
+      name: 'INGCO Tools',
+      icon: '🛠️',
+      description: 'Professional INGCO power tools and hardware solutions',
+      subcategories: ['Power Drills', 'Impact Tools', 'Grinding Tools', 'Saw Tools'],
+      products: [
+        { name: 'INGCO Power Drill', price: 'KES 6,500', features: ['1000W', 'Variable speed'] },
+        { name: 'INGCO Impact Wrench', price: 'KES 5,200', features: ['Professional grade', 'Durable'] },
+      ]
     },
   ];
 
@@ -54,73 +142,175 @@ export default function Products() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
-              Our <span className="text-orange-500">Products</span>
+              Product <span className="text-orange-500">Categories</span>
             </h1>
             <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-8">
-              Premium quality hardware and plumbing fixtures for professionals and homeowners
+              Professional hardware, tools, and equipment for all your needs
             </p>
           </div>
         </div>
       </section>
 
-      {/* Products Grid */}
-      <section className="py-16 md:py-24 bg-gray-50">
+      {/* Featured Categories Section */}
+      <section className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-              >
-                {/* Product Image */}
-                <div className="relative h-64 w-full">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover hover:scale-105 transition-transform duration-300"
-                  />
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800">
+            Featured Product <span className="text-orange-500">Categories</span>
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Cordless Tools */}
+            <a
+              href="/products/cordless-tools"
+              className="group relative h-64 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-linear-to-br from-blue-600 to-blue-800 group-hover:from-blue-700 group-hover:to-blue-900 transition-all duration-300"></div>
+              <div className="relative h-full flex flex-col items-center justify-center text-center p-6">
+                <span className="text-6xl mb-4">🔋</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Cordless Tools</h3>
+                <p className="text-blue-100 mb-6 group-hover:text-white transition-colors">
+                  Modern cordless power tools for convenience and mobility
+                </p>
+                <div className="flex items-center gap-2 text-white group-hover:gap-3 transition-all">
+                  <span>Explore</span>
+                  <ArrowRight size={20} />
                 </div>
+              </div>
+            </a>
 
-                {/* Product Details */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 mb-4">
-                    {product.description}
-                  </p>
+            {/* Power Tools */}
+            <a
+              href="/products/power-tools"
+              className="group relative h-64 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-linear-to-br from-orange-600 to-red-700 group-hover:from-orange-700 group-hover:to-red-800 transition-all duration-300"></div>
+              <div className="relative h-full flex flex-col items-center justify-center text-center p-6">
+                <span className="text-6xl mb-4">⚡</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Power Tools</h3>
+                <p className="text-orange-100 mb-6 group-hover:text-white transition-colors">
+                  Professional-grade tools for construction and heavy-duty work
+                </p>
+                <div className="flex items-center gap-2 text-white group-hover:gap-3 transition-all">
+                  <span>Explore</span>
+                  <ArrowRight size={20} />
+                </div>
+              </div>
+            </a>
 
-                  {/* Features */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {product.features.map((feature, index) => (
-                      <span
-                        key={index}
-                        className="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-semibold"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
+            {/* Product Accessories */}
+            <a
+              href="/products/product-accessories"
+              className="group relative h-64 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-linear-to-br from-emerald-600 to-teal-700 group-hover:from-emerald-700 group-hover:to-teal-800 transition-all duration-300"></div>
+              <div className="relative h-full flex flex-col items-center justify-center text-center p-6">
+                <span className="text-6xl mb-4">🔧</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Accessories</h3>
+                <p className="text-emerald-100 mb-6 group-hover:text-white transition-colors">
+                  Complete range of bits, blades, and tool accessories
+                </p>
+                <div className="flex items-center gap-2 text-white group-hover:gap-3 transition-all">
+                  <span>Explore</span>
+                  <ArrowRight size={20} />
+                </div>
+              </div>
+            </a>
 
-                  {/* Price and CTA */}
-                  <div className="mt-6 pt-6 border-t space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-slate-900">
-                        {product.price}
-                      </span>
+            {/* INGCO Tools */}
+            <a
+              href="#ingco-tools"
+              className="group relative h-64 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+            >
+              <div className="absolute inset-0 bg-linear-to-br from-yellow-500 to-amber-600 group-hover:from-yellow-600 group-hover:to-amber-700 transition-all duration-300"></div>
+              <div className="relative h-full flex flex-col items-center justify-center text-center p-6">
+                <span className="text-6xl mb-4">🛠️</span>
+                <h3 className="text-2xl font-bold text-white mb-2">INGCO Tools</h3>
+                <p className="text-yellow-100 mb-6 group-hover:text-white transition-colors">
+                  Professional INGCO power tools and hardware solutions
+                </p>
+                <div className="flex items-center gap-2 text-white group-hover:gap-3 transition-all">
+                  <span>Explore</span>
+                  <ArrowRight size={20} />
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories Dropdown Section */}
+      <section className="py-12 md:py-20 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="space-y-4">
+            {categories.map((category) => (
+              <div key={category.id} className="bg-white rounded-lg shadow-md overflow-hidden">
+                {/* Category Header */}
+                <button
+                  onClick={() => setExpandedCategory(expandedCategory === category.id ? null : category.id)}
+                  className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                >
+                  <div className="flex items-center gap-4">
+                    <span className="text-3xl">{category.icon}</span>
+                    <div className="text-left">
+                      <h3 className="text-xl font-bold text-slate-900">{category.name}</h3>
+                      <p className="text-sm text-gray-600">{category.description}</p>
                     </div>
-                    <a
-                      href="https://wa.me/254701761622"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg font-semibold transition-colors flex items-center justify-center gap-2"
-                    >
-                      <WhatsAppIcon />
-                      Order via WhatsApp
-                    </a>
                   </div>
-                </div>
+                  <ChevronDown
+                    size={24}
+                    className={`text-orange-500 transition-transform ${
+                      expandedCategory === category.id ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Expanded Content */}
+                {expandedCategory === category.id && (
+                  <div className="border-t bg-gray-50 p-6">
+                    {/* Subcategories */}
+                    <div className="mb-6">
+                      <h4 className="text-sm font-semibold text-slate-900 mb-3 uppercase">Subcategories</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                        {category.subcategories.map((subcat, idx) => (
+                          <button
+                            key={idx}
+                            className="text-left px-4 py-2 bg-white rounded-lg border border-orange-200 hover:bg-orange-50 text-orange-600 font-medium transition-colors"
+                          >
+                            {subcat}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Products */}
+                    <div>
+                      <h4 className="text-sm font-semibold text-slate-900 mb-3 uppercase">Featured Products</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {category.products.map((product, idx) => (
+                          <div
+                            key={idx}
+                            className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow"
+                          >
+                            <h5 className="font-bold text-slate-900 mb-1">{product.name}</h5>
+                            <ul className="text-xs text-gray-600 space-y-1 mb-3">
+                              {product.features.map((feat, i) => (
+                                <li key={i}>✓ {feat}</li>
+                              ))}
+                            </ul>
+                            <a
+                              href="https://wa.me/254701761622"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-full bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm font-semibold transition-colors flex items-center justify-center gap-2"
+                            >
+                              <WhatsAppIcon />
+                              Order
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </div>

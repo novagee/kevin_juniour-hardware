@@ -134,7 +134,7 @@ export default function DashboardPage() {
               Welcome back, {userName}!
             </h2>
             <p className="text-sm sm:text-base text-slate-600">
-              Here's what's happening with your business today.
+              Here&apos;s what&apos;s happening with your business today.
             </p>
           </div>
 
@@ -216,7 +216,7 @@ export default function DashboardPage() {
                 Download Report
               </h3>
               <p className="text-sm sm:text-base text-slate-600 mb-4 sm:mb-6">
-                Export this month's payment data as CSV
+                Export this month&apos;s payment data as CSV
               </p>
               <button className="inline-flex items-center gap-2 bg-orange-600 text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-orange-700 transition-colors text-sm sm:text-base font-medium">
                 Export Report →

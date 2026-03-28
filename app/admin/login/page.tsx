@@ -52,18 +52,18 @@ export default function LoginPage() {
         setError(data.detail || 'Invalid email or password');
         setLoading(false);
       }
-    } catch (err) {
+    } catch {
       setError('Connection error. Please try again.');
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 flex flex-col justify-center py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-linear-to-br from-slate-900 via-slate-900 to-slate-800 flex flex-col justify-center py-8 px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mx-auto w-full max-w-md mb-6 sm:mb-8">
         <Link href="/" className="flex items-center justify-center gap-2 mb-6 sm:mb-8">
-          <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg font-bold text-xl sm:text-2xl">
+          <div className="bg-linear-to-r from-orange-500 to-red-500 text-white px-3 sm:px-4 py-1 sm:py-2 rounded-lg font-bold text-xl sm:text-2xl">
             JH
           </div>
         </Link>
@@ -162,7 +162,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-slate-900 to-slate-800 text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:from-slate-800 hover:to-slate-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
+              className="w-full bg-linear-to-r from-slate-900 to-slate-800 text-white py-2.5 sm:py-3 rounded-lg font-semibold hover:from-slate-800 hover:to-slate-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -237,3 +237,9 @@ export default function LoginPage() {
     </div>
   );
 }
+
+<section>
+  <h1 className='text-2xl align-bottom mt-0 '> top footer</h1>
+
+<div className='flex flex-1 mt-1 text-5xl'> top navigation  </div>
+</section>

@@ -2,11 +2,10 @@
 
 import Link from 'next/link';
 import { Navbar, Footer } from '@/components';
-import { CheckCircle, ArrowRight } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight } from 'lucide-react';
 
 export default function PayPage() {
-  const [showSuccess, setShowSuccess] = useState(false);
+  // const [showSuccess, setShowSuccess] = useState(false);
 
   const steps = [
     {
@@ -56,7 +55,7 @@ export default function PayPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-linear-to-br from-slate-900 to-slate-800 text-white py-8 sm:py-12 md:py-20">
+       <section className="bg-linear-to-br from-slate-900 to-slate-800 text-white py-8 sm:py-12 md:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold mb-2 sm:mb-4">
             How to Pay via M-Pesa
@@ -162,17 +161,6 @@ export default function PayPage() {
           </div>
         </div>
       </section>
-
-      {/* Success Message Banner */}
-      {showSuccess && (
-        <div className="fixed top-20 left-4 right-4 md:left-auto md:right-4 md:top-20 bg-green-500 text-white rounded-lg shadow-lg p-4 flex items-center gap-3 animate-pulse z-50 text-sm sm:text-base">
-          <CheckCircle size={20} className="shrink-0 sm:size-24" />
-          <div>
-            <p className="font-semibold">Payment Successful!</p>
-            <p className="text-xs sm:text-sm">You will receive an SMS confirmation shortly</p>
-          </div>
-        </div>
-      )}
 
       {/* CTA Section */}
       <section className="py-10 sm:py-16 md:py-24 bg-linear-to-r from-slate-900 to-slate-800 text-white">

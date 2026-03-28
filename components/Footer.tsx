@@ -30,7 +30,7 @@ export default function Footer() {
               <span className="font-bold text-lg">Junior Hardware</span>
             </div>
             <p className="text-gray-400 text-sm">
-              Smart Payment System for seamless M-Pesa transactions
+              Your trusted partner for hardware solutions and professional services
             </p>
           </div>
 
@@ -57,7 +57,7 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2">
                 <MapPin size={18} className="text-orange-500" />
-                <span>Nairobi, Kenya</span>
+                <span>Kajiado kiserian, Kenya</span>
               </div>
             </div>
           </div>
@@ -69,8 +69,8 @@ export default function Footer() {
               <Link href="/" className="hover:text-orange-500 transition-colors block">
                 Home
               </Link>
-              <Link href="/products" className="hover:text-orange-500 transition-colors block">
-                Our Products
+              <Link href="/water-tanks" className="hover:text-orange-500 transition-colors block">
+                Water Tanks
               </Link>
               <Link
                 href="/admin/login"
@@ -81,12 +81,12 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        
 
         <div className="border-t border-slate-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-sm text-gray-400">
-              &copy; {currentYear} Junior Hardware Smart Payment System. All rights
-              reserved.
+              &copy; {currentYear} Aura stack limited. All rights reserved @ 2026.
             </p>
             <div className="flex gap-6 text-sm text-gray-400 mt-4 md:mt-0">
               <a href="#" className="hover:text-orange-500 transition-colors">
